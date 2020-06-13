@@ -1,12 +1,17 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import './App.scss'
 
 function App() {
   return (
-    <div className="App">
-      
+    <div>
+      <BrowserRouter>
+        <Switch>
+          
+        </Switch>
+      </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
