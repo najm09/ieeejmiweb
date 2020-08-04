@@ -3,7 +3,8 @@
 }
 
 body {
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
   margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
