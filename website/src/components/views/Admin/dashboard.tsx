@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from "./logo.png"
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
@@ -6,6 +7,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button'
 import ListItem from '@material-ui/core/ListItem';
@@ -21,6 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+
+    },
+    title: {
+      fontWeight: "bold",
     },
     drawer: {
       [theme.breakpoints.up('sm')]: {
@@ -33,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
       },
+      backgroundColor: "#424242"
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -48,6 +55,22 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flexGrow: 1,
       padding: theme.spacing(3),
+    },
+
+    Logo: {
+      width: 100,
+      height: 100,
+    },
+    icon: {
+      opacity: 1,
+      backgroundColor: "#424242",
+      color: "white",
+    },
+
+    submit: {
+      backgroundColor: "#424242",
+      color: "white",
+      fontWeight: "bold",
     },
   }),
 );
@@ -82,7 +105,7 @@ export default function Dashboard(props: Props) {
 
     {
       id: 3,
-      title: 'Calender Events',
+      title: 'Calender',
       link: '/Calender',
     },
 
@@ -95,20 +118,31 @@ export default function Dashboard(props: Props) {
 
   const drawer = (
     <div>
+      <List>
+        <ListItem>
+          <ListItemIcon className={classes.icon}><AccountCircleIcon /></ListItemIcon>
+          <Button variant="contained" className={classes.submit}>Log out</Button>
+        </ListItem>
+      </List>
       <Divider />
       <List>
         {
           TOOLS.map(ITEMS => (
             <div key={ITEMS.id}>
               <ListItem>
-                <ListItemIcon><InboxIcon /></ListItemIcon>
-                <Button href={ITEMS.link} >{ITEMS.title}</Button>
+                <ListItemIcon className={classes.icon}><InboxIcon /></ListItemIcon>
+                <Button
+                  className={classes.submit}
+                  href={ITEMS.link}
+                  variant="contained" >
+                  {ITEMS.title}
+                </Button>
               </ListItem>
             </div>
           ))
         }
       </List>
-      {/* <Divider /> */}
+      <Divider />
     </div>
   );
 
@@ -128,7 +162,7 @@ export default function Dashboard(props: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap className={classes.title}>
             Admin Portal
           </Typography>
         </Toolbar>
@@ -163,17 +197,19 @@ export default function Dashboard(props: Props) {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <div className={classes.toolbar} id='board' />
-        <Typography variant='h4'>
-          Welcome to
+        <div className={classes.toolbar} />
+        <Typography variant="h4" color="textPrimary">
+          IEEE JMI
         </Typography>
-        <Typography variant="h5">
-          Admin Portal
-        </Typography>
-        <Typography variant="h5" color="primary">
-          IEEE JMI Student Branch
-        </Typography>
-        <div id="board"></div>
+        <br />
+        <img
+          className={classes.Logo}
+          src={logo}
+          alt="logo">
+        </img>
+        <br />
+        <Typography variant="h4" >Student Branch</Typography>
+        <br />
       </main>
     </div>
   );

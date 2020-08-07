@@ -1,10 +1,14 @@
 import React from 'react'
-import './App.css'
+import Login from './views/Admin/Login'
+import Dashboard from './views/Admin/dashboard'
 
 
 function App() {
   return (
-        <div></div>
+    <div>
+      {
+        false? <Login/>: <Dashboard/>}
+    </div>
   )
 }
 

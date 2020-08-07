@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: 'black',
   },
   form: {
     width: '100%', 
@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: 'black',
+    color: 'white',
   },
 }));
 
@@ -56,7 +58,6 @@ export default function Signup() {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                autoFocus
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -98,14 +99,13 @@ export default function Signup() {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
             className={classes.submit}
           >
             Signp
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/Login" variant="body2">
+              <Link href="/Login" color='textPrimary'>
                 Already have an account? Login
               </Link>
             </Grid>
