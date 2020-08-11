@@ -1,97 +1,89 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import fire from '../../config/Fire';
 
 
+class Login extends Component {
+  state = { email: '', password: '' };
 
-const useStyles = makeStyles((theme) => ({
 
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: "black",
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    backgroundColor: "black",
-    color: "white"
-  },
-}));
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ [e.currentTarget.name]: e.currentTarget.value })
+  }
 
-export default function Login() {
-  const classes = useStyles();
+  login = () => {
+    fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+      .catch((error) => alert(error.message));
+  }
 
-  return (
+  signUp = () => {    
+    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .catch((error)=>alert(error.message));
+  }
 
-    <Container component='main'  maxWidth="xs">
-
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Login
+  render() {
+    const style = {
+      marginTop: 50,
+    }
+    return (
+      <Container component='main' maxWidth="xs" style={style}>
+        <CssBaseline />
+        <div >
+          <Typography component="h1" variant="h5">
+            IEEE JMI Admin
         </Typography>
-        <form className={classes.form} noValidate >
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            className={classes.submit}
-          >
-            Login
-          </Button>
-
-          <Grid container>
-            <Grid item>
-              <Link href="/Signup" color="textPrimary">
-                {"Don't have an account? Sign Up"}
-              </Link>
+          <form  method="POST">
+            <TextField
+              onChange={this.handleChange}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+            />
+            <TextField
+              onChange={this.handleChange}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <Button
+                  onClick={this.login}
+                  fullWidth
+                  variant="contained"
+                >Login
+            </Button>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Button
+                  onClick={this.signUp}
+                  fullWidth
+                  variant="contained">
+                    Signup
+                  </Button>
+              </Grid>
             </Grid>
-          </Grid>
-
-        </form>
-      </div>
-    </Container>
-  );
+          </form>
+        </div>
+      </Container>
+    );
+  }
 }
+
+export default Login;
