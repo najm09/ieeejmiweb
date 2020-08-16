@@ -1,69 +1,10 @@
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin'
-import * as nodemailer from 'nodemailer'
-
-admin.initializeApp();
-
-
-const senderEmail ='senderusername@gmail.com'
-const senderPassword = 'senderpassword'
-
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: senderEmail,
-        pass: senderPassword
-    }
-})
-
-exports.welcomeEmail = functions.auth.user().onCreate(user => {
-    admin.auth().setCustomUserClaims(user.uid, {
-        level: 100
-    })
-    //nodemailer logic for email templating
-    const email = user.email
-    let mailoptions = {
-        from: senderemail,
-        to: email,
-        subject: 'welcome to iee',
-        text: 'hello welcome to iee'
-    }
-
-    transporter.sendmail(mailoptions, (err, data) => {
-        if(err){
-            console.log(err)
-        }
-        else {
-            console.log("email sent")
-        }
-    })
-})
+import * as express from 'express'
+import auth from '../Util/auth'
+import * as userAuth from '../API/user'
+import * as events from '../API/events'
 
 
-exports.makeSecretary = functions.https.onCall((data, context) => {
-    const email = data.email
-    admin.auth().getUserByEmail(email)
-    .then(user => {
-        if(user.customClaims && (user.customClaims as any).level === 300){
-            return;
-        }
-        return admin.auth().setCustomUserClaims(user.uid, {
-            level: 300
-        })
-    })
+const app = express()
 
-})
-
-exports.eventCreated = functions.firestore
-    .document("events/{eventID}")
-    .onCreate((snap, context) => {
-        //send notifications to users specified in the event
-    })
-
-
-exports.eventNotification = functions.https
-    .onCall((data, context) => {
-
-    // get all the users of a given level and send them email
-
-})
+export const api = functions.https.onRequest(app)
