@@ -7,4 +7,10 @@ import * as events from '../API/events'
 
 const app = express()
 
+app.post('/login', userAuth.loginUser)
+app.post('/signUp', userAuth.signUpUser)
+app.post('/updateProfile', auth, userAuth.updateUserDetails)
+app.post('/makeAdmin', auth, userAuth.makeAdmin)
+app.get('/user', auth, userAuth.getUserDetails)
+
 export const api = functions.https.onRequest(app)

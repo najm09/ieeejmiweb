@@ -18,5 +18,7 @@ export default (req : any, res : any,  next : any) =>{
         })
         .then(data => {
             req.user.username = data.docs[0].data().username
+            req.user.admin = data.docs[0].data().admin()
+            return next()
         })
 }

@@ -1,13 +1,11 @@
 import {admin, db} from '../Util/admin'
 import * as firebase from 'firebase'
 
-
 export const loginUser = (request : any, response) => {
     const user = {
         email: request.body.email,
         password: request.body.password
     }
-
     firebase
         .auth()
         .signInWithEmailAndPassword(user.email, user.password)
@@ -16,9 +14,6 @@ export const loginUser = (request : any, response) => {
         })
         .then(token => {
             return response.json({token})
-        })
-        .catch(err => {
-
         })
 }
 
@@ -31,9 +26,11 @@ export const signUpUser = (request : any , response : any) =>{
         country: request.body.country,
 		password: request.body.password,
 		confirmPassword: request.body.confirmPassword,
-        username: request.body.username
+        username: request.body.username,
+        admin: request.body.admin
     }
-    let token, userId;
+    let token : string
+    let userId : string
     db
     .doc(`/users/${newUser.username}`)
     .get()
@@ -47,6 +44,7 @@ export const signUpUser = (request : any , response : any) =>{
                         newUser.email,
                         newUser.password
                 );
+
         }
     })
     .then((data) => {
@@ -63,6 +61,7 @@ export const signUpUser = (request : any , response : any) =>{
             country: newUser.country,
             email: newUser.email,
             createdAt: new Date().toISOString(),
+            admin: false,
             userId
         };
         return db
@@ -82,8 +81,8 @@ export const signUpUser = (request : any , response : any) =>{
     });
 }
 
-export const updateUserDetails = (request, response) => {
-    let document = db.collection('users').doc(`${request.user.username}`);
+export const updateUserDetails = (request : any, response : any) => {
+    const document = db.collection('users').doc(`${request.user.username}`);
     document.update(request.body)
     .then(() => {
         response.json({message : 'Updated Succesfully'})
@@ -113,3 +112,14 @@ export const getUserDetails = (request : any, response : any) => {
             return response.status(500).json({error : err.code})
         })
 }
+
+export const makeAdmin = (request : any, response : any) => {
+    if(!request.user.admin){
+        return response.status(403).json({message: 'Not Authorized'})
+    }
+
+    const document = db.collection('users').doc(`${request.body.username}`);
+    document.update('admin', true)
+    return response.status(200).send('user is now a admin')
+}
+
