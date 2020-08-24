@@ -1,35 +1,35 @@
-import React,{Component} from 'react'
+import React, { Component } from 'react'
 import fire from './config/Fire'
 import Login from './views/Admin/Login'
 import Dashboard from './views/Admin/Dashboard'
 
-class App extends Component{
-  state={user:{}};
+class App extends Component {
+  state = { user: {} };
 
-  componentDidMount(){
+  componentDidMount() {
     this.authListener();
   }
 
   // checking for authenticated user
 
-  authListener(){
+  authListener() {
     fire.auth().onAuthStateChanged((user) => {
-      if(user){
-        this.setState({user});
+      if (user) {
+        this.setState({ user });
         // session start
       }
-      else{
-        this.setState({user: null})
+      else {
+        this.setState({ user: null })
       }
-    }
-    )}
-  
+    })
+  }
+
   render() {
-  
+
     return (
       <div>
         {
-          this.state.user ? <Dashboard /> : <Login /> 
+          this.state.user ? <Dashboard /> : <Login />
         }
       </div>
     )

@@ -13,9 +13,12 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Logout from './Logout';
 import Scheduler from '../Tools/Scheduler'
 import Email from '../Tools/Email'
-import Certificate from '../Tools/Certificate';
+import Certdealer from '../Tools/Certdealer';
+import Events from '../Tools/Events';
+import Divider from '@material-ui/core/Divider'
 
-const drawerWidth = 150;
+
+const drawerWidth = 80;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -130,9 +133,11 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </div>
         <Logout />
-        <hr />
-        <Certificate />
+        <Divider/>
+        <Events />
+        <Certdealer />
         <Email />
+        <Divider />
       </Drawer>
       <main
         className={clsx(classes.content, {

@@ -5,6 +5,9 @@ import Button from '@material-ui/core/Button'
 import Input from '@material-ui/core/Input';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
+import EmailIcon from '@material-ui/icons/Email';
+import { List, ListItem } from '@material-ui/core';
+
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -95,9 +98,25 @@ export default function Email() {
 
   return (
     <div>
-      <Button type="button" style={{color:'white'}} onClick={handleOpen}>
-        Send Email
-      </Button>
+
+      <List>
+        <ListItem>
+          <Button type="button" style={{ color: 'white' }} onClick={handleOpen}>
+            <EmailIcon />
+          </Button>
+        </ListItem>
+      </List>
+
+      {/* <List>
+        <ListItem>
+          <Button type="button" style={{ color: 'white' }} onClick={handleOpen}>
+            <EmailIcon />
+          </Button>
+          <Certi />
+          </Button>
+        </ListItem>
+      </List> */}
+
       <Modal
         open={open}
         onClose={handleClose}
@@ -106,6 +125,6 @@ export default function Email() {
       >
         {body}
       </Modal>
-    </div>
+    </div >
   );
 }
