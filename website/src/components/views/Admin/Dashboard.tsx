@@ -1,21 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import { AppBar, Toolbar, Drawer, Typography, CssBaseline, Divider, makeStyles, useTheme, Theme, createStyles } from '@material-ui/core'
+import { ChevronLeft, ChevronRight, Menu } from '@material-ui/icons'
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Logout from './Logout';
 import Scheduler from '../Tools/Scheduler'
 import Email from '../Tools/Email'
 import Certdealer from '../Tools/Certdealer';
 import Events from '../Tools/Events';
-import Divider from '@material-ui/core/Divider'
 
 
 const drawerWidth = 80;
@@ -111,7 +103,7 @@ export default function PersistentDrawerLeft() {
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <Typography variant="h6" noWrap>
             IEEE JMI Student Branch
@@ -129,11 +121,11 @@ export default function PersistentDrawerLeft() {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            {theme.direction === 'ltr' ? <ChevronLeft /> : <ChevronRight />}
           </IconButton>
         </div>
         <Logout />
-        <Divider/>
+        <Divider />
         <Events />
         <Certdealer />
         <Email />
