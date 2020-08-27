@@ -23,6 +23,7 @@ export const getAllEvents = (request : Request, response : Response) => {
             console.error(err)
             return response.status(500).json({error : err.code})
         })
+
 }
 
 export const getEvent = (request : any, response : any) => {

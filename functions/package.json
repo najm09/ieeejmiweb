@@ -1,9 +1,14 @@
 {
   "name": "functions",
   "scripts": {
+<<<<<<< HEAD
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
     "serve": "npm run build && firebase emulators:start --only functions",
+=======
+    "build": "npm run build",
+    "serve": "npm run build && firebase serve --only functions",
+>>>>>>> 5f14ce5dabaa259f9b122997cbda8483c3380ed3
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
@@ -12,7 +17,7 @@
   "engines": {
     "node": "10"
   },
-  "main": "lib/index.js",
+  "main": "lib/index.tsx",
   "dependencies": {
     "@types/cors": "^2.8.7",
     "@types/nodemailer": "^6.4.0",
