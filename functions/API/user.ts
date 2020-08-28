@@ -1,7 +1,7 @@
 import {admin, db} from '../Util/admin'
 import * as firebase from 'firebase'
 
-export const loginUser = (request : any, response) => {
+export const loginUser = (request : any, response:any) => {
     const user = {
         email: request.body.email,
         password: request.body.password
