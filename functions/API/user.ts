@@ -1,4 +1,4 @@
-import {admin, db} from '../Util/admin'
+import {db} from '../Util/admin'
 import * as firebase from 'firebase'
 
 export const loginUser = (request : any, response:any) => {
