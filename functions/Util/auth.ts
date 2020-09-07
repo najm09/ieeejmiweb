@@ -7,6 +7,7 @@ export default (req : any, res : any,  next : any) =>{
     }
     else {
         console.error('No token found')
+        res.status(403).send('Not Authorized')
     }
 
     admin

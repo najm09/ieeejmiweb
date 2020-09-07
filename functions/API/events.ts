@@ -1,16 +1,7 @@
 import {db} from '../Util/admin'
-import {Request, Response} from 'express'
+import {Event} from '../index.d'
 
-interface Event {
-    title: string,
-    username: string,
-    body: string,
-    invitations: [string],
-    time: Date,
-    createdAt: Date
-}
-
-export const getAllEvents = (request : Request, response : Response) => {
+export const getAllEvents = (request : any, response : any) => {
     db
         .collection('events')
         .where('username', '==', request.user.username)
@@ -28,7 +19,7 @@ export const getAllEvents = (request : Request, response : Response) => {
 
 export const getEvent = (request : any, response : any) => {
     db
-        .doc(`/events/${request.params.todoId}`)
+        .doc(`/events/${request.params.eventId}`)
         .get()
         .then(doc => {
             if(!doc.exists){
@@ -36,7 +27,7 @@ export const getEvent = (request : any, response : any) => {
                     error: 'Events id does\'nt exist'
                 })
             }
-            if(doc.data().username !== request.user.username){
+            if(doc.data()?.username !== request.user.username){
                 return response.status(403).json("UnAutharized")
             }
             return response.json(doc)
@@ -46,6 +37,7 @@ export const getEvent = (request : any, response : any) => {
             return response.status(500).json({error : err.code})
         })
 }
+
 export const createEvent = (request : any, response : any) => {
     const newEvent : Event = {
         title: request.body.title,
@@ -74,8 +66,8 @@ export const editEvent = (request : any, response : any) => {
     }
     const document = db.collection('events').doc(`${request.params.eventId}`)
     document.update(request.body)
-    .then(doc => {
-        response.json({message : "Updated Succesfully"})
+    .then((doc) => {
+        response.json({message : "Updated Succesfully", doc})
     })
     .catch(err => {
         if(err.code === 5){
@@ -88,4 +80,29 @@ export const editEvent = (request : any, response : any) => {
             error: err.code
         })
     })
+}
+
+export const deleteEvent = async (request : any, response : any) => {
+    const document = db.doc(`/event/${request.params.eventId}`);
+    document
+    .get()
+    .then((doc) => {
+        if (!doc.exists) {
+            return response.status(404).json({
+                error: 'Event not found'
+            })}
+            if(doc?.data()?.username !== request.user.username){
+                return response.status(403).json({error:"UnAuthorized"})
+            }
+            return document.delete();
+    })
+    .then(() => {
+        response.json({ message: 'Delete successfull' });
+    })
+    .catch((err) => {
+        console.error(err);
+        return response.status(500).json({
+            error: err.code
+        });
+    });
 }

@@ -1,7 +1,9 @@
-import {admin, db} from '../Util/admin'
+import {db} from '../Util/admin'
 import * as firebase from 'firebase'
 
-export const loginUser = (request : any, response) => {
+//firebase.initializeApp(config)
+
+export const loginUser = (request : any, response : any) => {
     const user = {
         email: request.body.email,
         password: request.body.password
@@ -10,7 +12,7 @@ export const loginUser = (request : any, response) => {
         .auth()
         .signInWithEmailAndPassword(user.email, user.password)
         .then(data => {
-            return data.user.getIdToken()
+            return data?.user?.getIdToken()
         })
         .then(token => {
             return response.json({token})
@@ -96,7 +98,7 @@ export const updateUserDetails = (request : any, response : any) => {
 }
 
 export const getUserDetails = (request : any, response : any) => {
-    let userData : {[key : string] : any}  = {}
+    const userData : {[key : string] : any}  = {}
 
     db
         .doc(`/users/${request.user.username}`)
