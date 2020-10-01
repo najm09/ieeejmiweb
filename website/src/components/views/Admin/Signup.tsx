@@ -21,6 +21,12 @@ class SignUp extends Component {
     this.setState({ [e.currentTarget.name]: e.currentTarget.value })
   }
 
+  handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      this.signUp();
+    }
+  }
+
   render() {
 
     if (this.state.redirect) {
@@ -72,6 +78,7 @@ class SignUp extends Component {
               <Grid item xs={12}>
                 <TextField
                   onChange={this.handleChange}
+                  onKeyPress={this.handleKeyPress}
                   variant="outlined"
                   required
                   fullWidth

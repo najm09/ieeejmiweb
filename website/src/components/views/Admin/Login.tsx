@@ -23,6 +23,12 @@ class Login extends Component {
       .catch((error) => alert(error.message));
   }
 
+  handleKeyPress = (e) => {
+    if(e.key === 'Enter'){
+      this.login();
+    }
+  }
+
   render() {
 
     if (this.state.redirect) {
@@ -51,6 +57,7 @@ class Login extends Component {
             />
             <TextField
               onChange={this.handleChange}
+              onKeyPress = {this.handleKeyPress}
               variant="outlined"
               margin="normal"
               required
